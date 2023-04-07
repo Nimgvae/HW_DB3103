@@ -1,0 +1,45 @@
+Конспект занятия
+https://western-appeal-39b.notion.site/GenTech-Mar-31-2023-063e78a3dcc14298aaf19e91e6063dc5 
+
+1 уровень сложности:
+ В рамках БД 'platform' решите след/задачи:
+
+(1) Вывести все пожертвования от 10 EUR, с указанием имениавторапожертвования и суммы
+
+
+(2) Вывести стримера, которому было сделано самое минимальное пожертвование (имя_стримера, сумма)
+
+
+(3) Вывести последнее пожертвование (название_стрима, сумма)
+
+
+------------------------------------------------------------------------------------------------------
+
+1.
+SELECT
+donations.amount AS AMOUNT,
+users.fullname AS FULLNAME
+FROM donations
+JOIN users ON donations.donator_id=users.user_id
+WHERE donations.amount >10;
+
+2.
+select
+donations.amount,
+users.fullname
+from users
+join donations on users.user_id=donations.donator_id
+join streams on streams.user_id=users.user_id
+order by amount asc
+limit 1;
+
+3.
+select
+donations.amount,
+streams.title
+from donations
+join streams on donations.stream_id=streams.stream_id
+order by donations.created_at desc
+limit 1;
+
+
